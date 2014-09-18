@@ -1,32 +1,35 @@
-<h1>Pose a question</h1>
+<h1>Post a question</h1>
+<%if signed_in? %>
+  <%= form_for @question, url: {action: "create"}, html: {class: "input_form"} do |f| %>
 
-<%= form_for @question, url: {action: "create"}, html: {class: "input_form"} do |f| %>
-
-  <% if @question.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@question.errors.count, "error") %> prohibited
-      this question from being posed:</h2>
-    <ul>
-    <% @question.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited
+        this question from being posed:</h2>
+      <ul>
+      <% @question.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
     <% end %>
-    </ul>
-  </div>
+
+    <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title, size: "50x10" %>
+    </p>
+
+    <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, size: "60x12" %>
+    </p>
+
+    <p>
+    <%= f.submit "Create" %>
+    </p>
   <% end %>
-
-  <p>
-  <%= f.label :title %><br />
-  <%= f.text_field :title, size: "50x10" %>
-  </p>
-
-  <p>
-  <%= f.label :description %><br />
-  <%= f.text_area :description, size: "60x12" %>
-  </p>
-
-  <p>
-  <%= f.submit "Create" %>
-  </p>
+<% else %>
+  <p>You must sign in to post a question.</p>
 <% end %>
 
 <br />
