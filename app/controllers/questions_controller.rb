@@ -31,8 +31,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question = Question.find(params[:id])
 
+    @question = Question.find(params[:id])
+    # @question.best_answer_id = params[:format]
     if @question.update(question_params)
       redirect_to @question
     else
@@ -47,6 +48,10 @@ class QuestionsController < ApplicationController
 
 private
   def question_params
-    params.require(:question).permit(:title, :description, :user_id)
+    if params[:question]
+      params.require(:question).permit(:title, :description, :user_id)
+    else
+      {:best_answer_id => params[:format]}
+    end
   end
 end

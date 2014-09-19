@@ -8,7 +8,7 @@
     <% @answers.each do |answer| %>
     <li>
       <%= answer.description %>
-       <%= button_to "Vote Best Answer", question_path(@question, @answer), method: :patch %><br>
+       <%= button_to "Vote Best Answer", question_path(@question, answer), method: :patch %><br>
     </li>
     <%end%>
   </ul>
