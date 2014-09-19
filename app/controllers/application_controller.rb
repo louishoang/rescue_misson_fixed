@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :signed_in?, :current_user, :same_user?
+  helper_method :signed_in?, :current_user, :same_user?, :owner?
 
   protected
 
@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   def same_user?(user)
     user.user_id == current_user.id
+  end
+
+  def owner?
+    @question.user_id == current_user.id
   end
 
   def authenticate!

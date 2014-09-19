@@ -14,8 +14,9 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    @user = User.find(current_user.id)
     @question = Question.new(question_params)
-
+    @question.user_id = @user.id
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question}
@@ -23,7 +24,6 @@ class QuestionsController < ApplicationController
         format.html { render action: 'new' }
       end
     end
-
   end
 
   def edit
@@ -40,9 +40,13 @@ class QuestionsController < ApplicationController
     end
   end
 
-private
-    def question_params
-      params.require(:question).permit(:title, :description)
-    end
+  def destroy
+    Question.find(params[:id]).destroy
+    redirect_to '/questions'
+  end
 
+private
+  def question_params
+    params.require(:question).permit(:title, :description, :user_id)
+  end
 end

@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   end
 
   validates :username, presence: true
+  has_many :questions
 end

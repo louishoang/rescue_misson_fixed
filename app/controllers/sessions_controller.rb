@@ -14,7 +14,6 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-
   def failure
     flash[:alert] = "Unable to sign in."
 
